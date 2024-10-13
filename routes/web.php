@@ -36,10 +36,16 @@ Route::get('/sendmail', function(){
      * when running queue locally, run `php artisan queue:work`
      */
 
-     Mail::to('john@yahoo.com')->queue(new SendMail($mailData));
+    Mail::to('john@yahoo.com')->queue(new SendMail($mailData));
 
     return dd('Email Sent');
+
+});
+
+Route::get('blade-component', function(){
+    return view('blade-component');
 });
 
 
 require __DIR__.'/auth.php';
+
