@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Mail\SendMail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -23,5 +25,14 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('post',PostController::class)->middleware('auth');
+
+Route::get('/sendmail', function(){
+
+    $mailData = ['name'=>'test user'];
+    Mail::to('john@yahoo.com')->send(new SendMail($mailData));
+
+    return dd('Email Sent');
+});
+
 
 require __DIR__.'/auth.php';
