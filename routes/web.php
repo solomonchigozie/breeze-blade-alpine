@@ -29,7 +29,14 @@ Route::resource('post',PostController::class)->middleware('auth');
 Route::get('/sendmail', function(){
 
     $mailData = ['name'=>'test user'];
-    Mail::to('john@yahoo.com')->send(new SendMail($mailData));
+    // Mail::to('john@yahoo.com')->send(new SendMail($mailData));
+
+    /**
+     * to use queue
+     * when running queue locally, run `php artisan queue:work`
+     */
+
+     Mail::to('john@yahoo.com')->queue(new SendMail($mailData));
 
     return dd('Email Sent');
 });
